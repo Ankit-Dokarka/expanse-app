@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Valley+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+body {
+  background-color: #FEF1DF;
+  min-height: 100vh;
+  font-family: "Valley Sans", sans-serif;
+  padding: 2rem;
+  width: 100%;
+ 
+}
+
