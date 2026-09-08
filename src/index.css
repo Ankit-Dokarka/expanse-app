@@ -5,8 +5,9 @@ body {
   background-color: #FEF1DF;
   min-height: 100vh;
   font-family: "Valley Sans", sans-serif;
-  padding: 2rem;
+  display: flex;
   width: 100%;
- 
+  justify-content: center;
+  align-items: center;
 }
 
