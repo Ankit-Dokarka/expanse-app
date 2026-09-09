@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const [error, setError] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
@@ -15,14 +15,15 @@ export const Login = () => {
 
   const onSubmit = (data) => {
     if (usersData[data.email]) {
-        if(usersData[data.email].password === data.password){
-            navigate("/")
-            setError('')
-        }else{
-            setError("Invalid Credentials")
-        }
+      if (usersData[data.email].password === data.password) {
+        navigate("/");
+        setError("");
+        localStorage.setItem("currentUser", JSON.stringify(data.email));
+      } else {
+        setError("Invalid Credentials");
+      }
     } else {
-     setError("Please Register");
+      setError("Please Register");
     }
   };
   return (
@@ -48,18 +49,22 @@ export const Login = () => {
             },
           })}
         />
-        {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+        {errors.email && (
+          <p className="text-red-500 text-sm">{errors.email.message}</p>
+        )}
         <label htmlFor="password">Password</label>
         <input
           className="border-2 border-[#f7bf72] outline-none rounded-sm px-1 py-1"
           type="password"
           id="password"
-          {...register("password",{
+          {...register("password", {
             required: "Password is required",
           })}
         />
-        {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
-        
+        {errors.password && (
+          <p className="text-red-500 text-sm">{errors.password.message}</p>
+        )}
+
         <button
           type="submit"
           className="bg-[#FD7D07] p-2 text-center rounded-md cursor-pointer text-white font-bold"
