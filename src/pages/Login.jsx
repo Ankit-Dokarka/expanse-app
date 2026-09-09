@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const {
     handleSubmit,
@@ -14,16 +15,27 @@ export const Login = () => {
   let usersData = data ? data : {};
 
   const onSubmit = (data) => {
+    setLoading(true);
     if (usersData[data.email]) {
       if (usersData[data.email].password === data.password) {
-        navigate("/");
-        setError("");
-        localStorage.setItem("currentUser", JSON.stringify(data.email));
+        setTimeout(() => {
+          navigate("/");
+          setError("");
+
+          localStorage.setItem("currentUser", JSON.stringify(data.email));
+          setLoading(false);
+        }, 2000);
       } else {
-        setError("Invalid Credentials");
+        setTimeout(() => {
+          setError("Invalid Credentials");
+          setLoading(false);
+        }, 2000);
       }
     } else {
-      setError("Please Register");
+      setTimeout(() => {
+        setError("Please Register");
+        setLoading(false);
+      }, 2000);
     }
   };
   return (
@@ -67,9 +79,13 @@ export const Login = () => {
 
         <button
           type="submit"
-          className="bg-[#FD7D07] p-2 text-center rounded-md cursor-pointer text-white font-bold"
+          className="bg-[#FD7D07] p-2 flex justify-center items-center rounded-md cursor-pointer text-white font-bold"
         >
-          Login
+          {loading ? (
+            <div className="h-6 w-6 animate-spin rounded-full border-2 border-white border-t-transparent" />
+          ) : (
+            "Login"
+          )}
         </button>
       </form>
     </div>
