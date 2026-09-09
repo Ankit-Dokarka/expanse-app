@@ -6,10 +6,13 @@ export const Register = () => {
   const {
     handleSubmit,
     register,
+    watch,
     formState: { errors },
   } = useForm();
   const data = JSON.parse(localStorage.getItem("usersData"));
   let usersData = data ? data : {};
+
+  const checkPassword = watch("confirmPassword");
 
   const onSubmit = (data) => {
     if (usersData[data.email]) {
@@ -17,6 +20,7 @@ export const Register = () => {
     } else {
       usersData[data.email] = data;
       localStorage.setItem("usersData", JSON.stringify(usersData));
+      setError('')
     }
   };
   return (
@@ -25,8 +29,9 @@ export const Register = () => {
       {error ? <p className="text-red-500 text-center">{error}</p> : null}
       <form
         action=""
-        className="flex justify-center flex-col gap-2"
+        className="flex justify-center flex-col gap-2 h-100"
         onSubmit={handleSubmit(onSubmit)}
+        noValidate
       >
         <label htmlFor="name">Name</label>
         <input
@@ -34,32 +39,58 @@ export const Register = () => {
           type="text"
           id="name"
           {...register("name", {
-            maxLength: 3,
-            message: "Name must be greater than 3 ",
+            required: "Name is required",
+            minLength: {value: 3, message: "Name must be at least 3 characters long"},
           })}
         />
-        {errors.name && <p>{errors.name.message}</p>}
+        {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
         <label htmlFor="email">Email</label>
         <input
           className="border-2 border-[#f7bf72] outline-none rounded-sm px-1 py-1"
           type="email"
           id="email"
-          {...register("email")}
+          {...register("email", {
+            required: "Email is required",
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: "Invalid email address",
+            },
+          })}
         />
+        {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
         <label htmlFor="password">Password</label>
         <input
           className="border-2 border-[#f7bf72] outline-none rounded-sm px-1 py-1"
           type="password"
           id="password"
-          {...register("password")}
+          {...register("password",{
+            required: "Password is required",
+            minLength: {value: 6, message: "Password must be at least 6 characters long"},
+            pattern: {
+              value: /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+              message: "Password must contain at least one uppercase letter, one number, and one special character",
+            },
+          })}
         />
+        {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
         <label htmlFor="confirmPassword">Confirm Password</label>
         <input
           className="border-2 border-[#f7bf72] outline-none rounded-sm px-1 py-1"
           type="password"
           id="confirmPassword"
-          {...register("confirmPassword")}
+          {...register("confirmPassword", {
+            required: "Confirm Password is required",
+            minLength: {value: 6, message: "Confirm Password must be at least 6 characters long"},
+            validate: (value)=>{
+              console.log(value, password.value)
+              if(value !== password.value){
+                return "Passwords do not match"
+              }
+            }
+          })}
+         
         />
+         {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword.message}</p>}
         <button
           type="submit"
           className="bg-[#FD7D07] p-2 text-center rounded-md cursor-pointer text-white font-bold"
