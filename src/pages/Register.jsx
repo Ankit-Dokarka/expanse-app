@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const naviagte = useNavigate();
   const {
     handleSubmit,
@@ -17,18 +18,25 @@ export const Register = () => {
   const checkPassword = watch("confirmPassword");
 
   const onSubmit = (data) => {
+    setLoading(true);
     if (usersData[data.email]) {
-      setError("User already exists");
+      setTimeout(() => {
+        setError("User already exists");
+        setLoading(false);
+      }, 2000);
     } else {
-      usersData[data.email] = data;
-      localStorage.setItem("usersData", JSON.stringify(usersData));
-      setError("");
-      naviagte("/");
-      localStorage.setItem("currentUser", JSON.stringify(data.email));
+      setTimeout(() => {
+        usersData[data.email] = data;
+        localStorage.setItem("usersData", JSON.stringify(usersData));
+        setError("");
+        naviagte("/");
+        localStorage.setItem("currentUser", JSON.stringify(data.email));
+        setLoading(false);
+      }, 2000);
     }
   };
   return (
-    <div className="w-100  p-5 bg-white shadow-red-500 shadow-lg rounded-md">
+    <div className="w-100  p-5 bg-white shadow-lg rounded-md">
       <h2 className="text-xl font-bold text-center">Register</h2>
       {error ? <p className="text-red-500 text-center">{error}</p> : null}
       <form
@@ -117,9 +125,13 @@ export const Register = () => {
         )}
         <button
           type="submit"
-          className="bg-[#FD7D07] p-2 text-center rounded-md cursor-pointer text-white font-bold"
+          className="bg-[#FD7D07] p-2 flex justify-center items-center rounded-md cursor-pointer text-white font-bold"
         >
-          Register
+          {loading ? (
+            <div className="h-6 w-6 animate-spin rounded-full border-2 border-white border-t-transparent" />
+          ) : (
+            "Register"
+          )}
         </button>
       </form>
     </div>
