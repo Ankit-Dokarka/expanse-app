@@ -21,7 +21,7 @@ const App = () => {
             element={
               <>
                 <ExpenseForm />
-                <ExpenseList />
+                {/* <ExpenseList /> */}
               </>
             }
           />

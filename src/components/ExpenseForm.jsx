@@ -47,13 +47,11 @@ const ExpenseForm = () => {
   return (
     <div className="max-w-350 mx-auto  bg-[#FDFDFD] rounded-lg shadow-md  p-4 ">
       {/* Title */}
-      <div className="flex justify-content-center align-items-center gap-6 pb-2 mt-2 mb-2">
-        <div className="h-12 w-12 rounded-4xl flex justify-content-center align-items-center bg-[#FD7D07]">
-          {" "}
+      <div className="flex justify-center items-center gap-6 pb-2 mt-2 mb-2">
+        <div className="h-12 w-12 rounded-4xl flex justify-center items-center bg-[#FD7D07]">
           <FaWallet color="white" size={24} />
         </div>
-        <h2 className="fw-bold text-sm">
-          {" "}
+        <h2 className="font-bold text-mb">
           {editingExpense ? "Edit Expense" : "Add Expense"}
         </h2>
       </div>
@@ -62,23 +60,23 @@ const ExpenseForm = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="">
-          <div className="flex gap-2 align-items-center mb-2">
+          <div className="flex gap-2 items-center mb-2">
             <FiUser size={20} color="#FD7D07" />
-            <label className=" fw-bold text-sm">Name</label>
+            <label className=" font-bold text-sm">Name</label>
           </div>
           <input
+            className="border-2 outline-none border-amber-600 px-1 py-1 rounded-md"
             type="text"
-            className="form-control"
             placeholder="Enter name"
             {...register("name")}
           />
         </div>
         <div>
-          <div className="flex gap-2 align-items-center mb-2">
+          <div className="flex gap-2 items-center mb-2">
             <FiUsers size={20} color="#FD7D07" />
-            <label className=" fw-bold text-sm">Gender</label>
+            <label className=" font-bold text-sm">Gender</label>
           </div>
-          <div className="flex justify-content-start items-center gap-3">
+          <div className="flex justify-start items-center gap-3">
             {["Male", "Female", "Other"].map((gender) => {
               return (
                 <>
@@ -100,12 +98,12 @@ const ExpenseForm = () => {
         <div className="flex flex-col gap-2  mb-2">
           <div className="flex gap-2">
             <FaCrown size={20} color="#FD7D07" />
-            <label className="fw-bold text-sm">Title</label>
+            <label className="font-bold text-sm">Title</label>
           </div>
 
           <input
+            className="border-2 outline-none border-amber-600 px-1 py-1 rounded-md"
             type="text"
-            className="form-control"
             placeholder="Example: Dinner"
             {...register("title")}
           />
@@ -113,11 +111,11 @@ const ExpenseForm = () => {
         <div className="flex flex-col gap-2 col-span-1 md:col-span-2">
           <div className=" flex  gap-2 items-center">
             <FiFileText size={20} color="#FD7D07" />
-            <label className="fw-bold text-sm">Description</label>
+            <label className="font-bold text-sm">Description</label>
           </div>
 
           <textarea
-            className="form-control h-100"
+            className="border-2 outline-none border-amber-600 px-1 py-1 rounded-md"
             rows="4"
             placeholder="Enter description"
             {...register("description")}
@@ -126,17 +124,24 @@ const ExpenseForm = () => {
         <div className="flex flex-col gap-2  mb-2">
           <div className="flex gap-2">
             <FaRupeeSign size={20} color="#FD7D07" />
-            <label className="fw-bold text-sm">Amount</label>
+            <label className="font-bold text-sm">Amount</label>
           </div>
 
-          <input type="text" className="form-control" {...register("amount")} />
+          <input
+            className="border-2 outline-none border-amber-600 px-1 py-1 rounded-md"
+            type="text"
+            {...register("amount")}
+          />
         </div>
         <div className="flex flex-col gap-2  mb-2 col-span-1 md:col-span-2">
           <div className="flex gap-2">
             <FiUser size={20} color="#FD7D07" />
-            <label className="fw-bold text-sm">Paid By</label>
+            <label className="font-bold text-sm">Paid By</label>
           </div>
-          <select className="form-select" {...register("paidBy")}>
+          <select
+            className="border-2 outline-none border-amber-600 px-1 py-1 rounded-md"
+            {...register("paidBy")}
+          >
             <option value="">Select person</option>
 
             {members.map((member) => (
@@ -147,27 +152,28 @@ const ExpenseForm = () => {
           </select>
         </div>
         <div>
-          <div className="flex gap-2 align-items-center mb-2">
+          <div className="flex gap-2 items-center mb-2">
             <FiPieChart size={20} color="#FD7D07" />
-            <label className=" fw-bold text-sm">Split Type</label>
+            <label className=" font-bold text-sm">Split Type</label>
           </div>
-          <div className="flex justify-content-start items-center gap-4">
+          <div className="flex justify-start items-center gap-4">
             {["Equal", "Percentage"].map((splitType) => {
               return (
                 <>
                   <input
+                    id={splitType}
                     type="radio"
                     name={splitType}
                     value={splitType}
                     {...register("gender")}
                   />
-                  <label className="form-check-label"> {splitType}</label>
+                  <label htmlFor={splitType}> {splitType}</label>
                 </>
               );
             })}
           </div>
         </div>
-        <button className="bg-[#FD7D07] flex justify-center items-center rounded-lg! text-white gap-2 px-1 py-3 fw-bold">
+        <button className="bg-[#FD7D07] flex justify-center items-center rounded-lg text-white gap-2 px-0.5 py-2 fw-bold">
           <FiPlus color="white" size={20} />
           {editingExpense ? "Update Expense" : "Add Expense"}
         </button>
