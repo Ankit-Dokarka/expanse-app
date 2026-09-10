@@ -157,17 +157,17 @@ const ExpenseForm = () => {
             <label className=" font-bold text-sm">Split Type</label>
           </div>
           <div className="flex justify-start items-center gap-4">
-            {["Equal", "Percentage"].map((splitType) => {
+            {["Equal", "Percentage"].map((splitRule) => {
               return (
                 <>
                   <input
-                    id={splitType}
+                    id={splitRule}
                     type="radio"
-                    name={splitType}
-                    value={splitType}
-                    {...register("gender")}
+                    name={splitRule}
+                    value={splitRule}
+                    {...register("splitRule")}
                   />
-                  <label htmlFor={splitType}> {splitType}</label>
+                  <label htmlFor={splitRule}> {splitRule}</label>
                 </>
               );
             })}

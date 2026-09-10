@@ -17,7 +17,7 @@ const ExpenseList = () => {
           <p className="m-0 font-extrabold text-2xl">Expanse Table</p>
         </div>
       </div>
-      <div className="">
+      {/* <div>
         <div className="flex h-10 w-full justify-evenly items-center gap-5 pr-2 pl-2 bg-[#fce4cd] mt-2 rounded-t-lg font-bold text-sm shadow-lg ">
           <div>#</div>
           <div>Name</div>
@@ -40,7 +40,24 @@ const ExpenseList = () => {
             Add an expanse using the form above.
           </p>
         </div>
-      </div>
+      </div> */}
+      <table className="flex justify-center items-center pt-4 border-t-rounded-m">
+        <thead className="bg-[#fce4cd]">
+          <tr className="flex justify-center items-center gap-7 p-2">
+            <th>#</th>
+            <th>Name</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Gender</th>
+            <th>Amount</th>
+            <th>Paid By</th>
+            <th>Split Rule</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
     </div>
     // <div className="mt-5">
     //   <h2 className="mb-4">Expense Table</h2>

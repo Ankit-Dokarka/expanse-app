@@ -21,10 +21,11 @@ const App = () => {
             element={
               <>
                 <ExpenseForm />
-                {/* <ExpenseList /> */}
+                 <ExpenseList /> 
               </>
             }
           />
+          
         </Route>
       </Routes>
     </UserExpanseProvider>
