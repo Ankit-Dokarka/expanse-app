@@ -6,6 +6,7 @@ import { Register } from "./pages/Register";
 import { Routes, Route } from "react-router-dom";
 import { PublicRoutes } from "./routes/PublicRoutes";
 import { PrivateRoutes } from "./routes/PrivateRoutes";
+import { Header } from "./components/Header";
 
 const App = () => {
   return (
@@ -20,12 +21,12 @@ const App = () => {
             path="/"
             element={
               <>
+                <Header />
                 <ExpenseForm />
-                 <ExpenseList /> 
+                <ExpenseList />
               </>
             }
           />
-          
         </Route>
       </Routes>
     </UserExpanseProvider>

@@ -22,17 +22,18 @@ const ExpenseForm = () => {
       return;
     }
 
-    setName(editingExpense.name);
-    setGender(editingExpense.gender);
-    setTitle(editingExpense.title);
-    setDescription(editingExpense.description);
-    setAmount(editingExpense.amount);
-    setPaidBy(editingExpense.paidBy);
-    setSplitRule(editingExpense.splitRule);
+    reset({
+      name: editingExpense.name,
+      gender: editingExpense.gender,
+      title: editingExpense.title,
+      description: editingExpense.description,
+      amount: editingExpense.amount,
+      paidBy: editingExpense.paidBy,
+      splitRule: editingExpense.splitRule,
+    });
   }, [editingExpense]);
 
   const onSubmit = (data) => {
-    console.log(data);
     handleExpanse(data);
     reset({
       name: "",
@@ -45,7 +46,7 @@ const ExpenseForm = () => {
     });
   };
   return (
-    <div className="max-w-350 mx-auto  bg-[#FDFDFD] rounded-lg shadow-md  p-4 ">
+    <div className="max-w-350 mx-auto  bg-[#FDFDFD] rounded-lg shadow-md overflow-x-auto  p-4 ">
       {/* Title */}
       <div className="flex justify-center items-center gap-6 pb-2 mt-2 mb-2">
         <div className="h-12 w-12 rounded-4xl flex justify-center items-center bg-[#FD7D07]">
