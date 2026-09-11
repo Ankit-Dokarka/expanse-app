@@ -25,8 +25,26 @@ export const UserExpanseProvider = ({ children }) => {
       editingExpense.amount = expanse.amount;
       editingExpense.paidBy = expanse.paidBy;
       editingExpense.splitRule = expanse.splitRule;
+
+      users[currentUser].expanses.forEach((exp) => {
+        if (exp.id === editingExpense.id) {
+          exp.name = expanse.name;
+          exp.gender = expanse.gender;
+          exp.title = expanse.title;
+          exp.description = expanse.description;
+          exp.amount = expanse.amount;
+          exp.paidBy = expanse.paidBy;
+          exp.splitRule = expanse.splitRule;
+        }
+      });
+
+      localStorage.setItem("usersData", JSON.stringify(users));
+      setExpanses((prev) => {
+        let update = prev.find((exp) => editingExpense.id === exp.id);
+        update = expanse;
+        return prev;
+      });
       setEditingExpense(null);
-      localStorage.setItem("users", JSON.stringify(expanses));
     } else {
       const newExpenseData = {
         id: crypto.randomUUID(),
@@ -44,9 +62,12 @@ export const UserExpanseProvider = ({ children }) => {
     }
   };
   const handleDelete = (id) => {
-    const newExpanses = expanses.filter((exp) => exp.id !== id);
+    const newExpanses = users[currentUser].expanses.filter(
+      (exp) => exp.id !== id,
+    );
     setExpanses(newExpanses);
-    localStorage.setItem("users", JSON.stringify(newExpanses));
+    users[currentUser].expanses = newExpanses;
+    localStorage.setItem("usersData", JSON.stringify(users));
   };
 
   return (
