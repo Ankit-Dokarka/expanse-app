@@ -13,7 +13,7 @@ import {
 
 const members = ["Ritik", "Neeraj", "Ankit", "Kunal"];
 
-const ExpenseForm = () => {
+const ExpenseForm = ({ admin }) => {
   const { register, handleSubmit, reset } = useForm({});
   const { handleExpanse, editingExpense, setEditingExpense } = useUserExpanse();
 
@@ -45,7 +45,9 @@ const ExpenseForm = () => {
       splitRule: "",
     });
   };
-  return (
+  return admin ? (
+    <p>Welcom to admin page</p>
+  ) : (
     <div className="max-w-350 mx-auto  bg-[#FDFDFD] rounded-lg shadow-md overflow-x-auto  p-4 ">
       {/* Title */}
       <div className="flex justify-center items-center gap-6 pb-2 mt-2 mb-2">

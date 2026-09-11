@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-export const Login = () => {
+export const Login = ({ setAdmin }) => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -13,15 +13,36 @@ export const Login = () => {
   } = useForm();
   const data = JSON.parse(localStorage.getItem("usersData"));
   let usersData = data ? data : {};
-
+  const admin = JSON.parse(localStorage.getItem("admin"));
   const onSubmit = (data) => {
     setLoading(true);
-    if (usersData[data.email]) {
-      if (usersData[data.email].password === data.password) {
+    if (admin.email !== data.email) {
+      if (usersData[data.email]) {
+        if (usersData[data.email].password === data.password) {
+          setTimeout(() => {
+            navigate("/");
+            setError("");
+
+            localStorage.setItem("currentUser", JSON.stringify(data.email));
+            setLoading(false);
+          }, 2000);
+        } else {
+          setTimeout(() => {
+            setError("Invalid Credentials");
+            setLoading(false);
+          }, 2000);
+        }
+      } else {
+        setTimeout(() => {
+          setError("Please Register");
+          setLoading(false);
+        }, 2000);
+      }
+    } else {
+      if (admin.password === data.password) {
         setTimeout(() => {
           navigate("/");
-          setError("");
-
+          setAdmin(true);
           localStorage.setItem("currentUser", JSON.stringify(data.email));
           setLoading(false);
         }, 2000);
@@ -31,11 +52,6 @@ export const Login = () => {
           setLoading(false);
         }, 2000);
       }
-    } else {
-      setTimeout(() => {
-        setError("Please Register");
-        setLoading(false);
-      }, 2000);
     }
   };
   return (

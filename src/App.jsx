@@ -7,12 +7,14 @@ import { Routes, Route } from "react-router-dom";
 import { PublicRoutes } from "./routes/PublicRoutes";
 import { PrivateRoutes } from "./routes/PrivateRoutes";
 import { Header } from "./components/Header";
+import { useState } from "react";
 
 const App = () => {
+  const [admin, setAdmin] = useState(false);
   return (
     <Routes>
       <Route element={<PublicRoutes />}>
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setAdmin={setAdmin} />} />
         <Route path="/register" element={<Register />} />
       </Route>
       <Route element={<PrivateRoutes />}>
@@ -21,8 +23,8 @@ const App = () => {
           element={
             <UserExpanseProvider>
               <Header />
-              <ExpenseForm />
-              <ExpenseList />
+              <ExpenseForm admin={admin} />
+              <ExpenseList admin={admin} />
             </UserExpanseProvider>
           }
         />
