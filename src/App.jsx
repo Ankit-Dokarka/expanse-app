@@ -10,26 +10,24 @@ import { Header } from "./components/Header";
 
 const App = () => {
   return (
-    <UserExpanseProvider>
-      <Routes>
-        <Route element={<PublicRoutes />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Route>
-        <Route element={<PrivateRoutes />}>
-          <Route
-            path="/"
-            element={
-              <>
-                <Header />
-                <ExpenseForm />
-                <ExpenseList />
-              </>
-            }
-          />
-        </Route>
-      </Routes>
-    </UserExpanseProvider>
+    <Routes>
+      <Route element={<PublicRoutes />}>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Route>
+      <Route element={<PrivateRoutes />}>
+        <Route
+          path="/"
+          element={
+            <UserExpanseProvider>
+              <Header />
+              <ExpenseForm />
+              <ExpenseList />
+            </UserExpanseProvider>
+          }
+        />
+      </Route>
+    </Routes>
   );
 };
 
