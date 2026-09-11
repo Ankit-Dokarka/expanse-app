@@ -26,6 +26,7 @@ export const Register = () => {
       }, 2000);
     } else {
       setTimeout(() => {
+        data.expanses = [];
         usersData[data.email] = data;
         localStorage.setItem("usersData", JSON.stringify(usersData));
         setError("");
