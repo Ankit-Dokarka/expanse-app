@@ -10,12 +10,14 @@ import {
   FiPieChart,
   FiPlus,
 } from "react-icons/fi";
+import { useAuth } from "../context/AuthContext";
 
 const members = ["Ritik", "Neeraj", "Ankit", "Kunal"];
 
-const ExpenseForm = ({ admin }) => {
+const ExpenseForm = () => {
   const { register, handleSubmit, reset } = useForm({});
   const { handleExpanse, editingExpense, setEditingExpense } = useUserExpanse();
+  const { role } = useAuth();
 
   useEffect(() => {
     if (!editingExpense) {
@@ -45,9 +47,10 @@ const ExpenseForm = ({ admin }) => {
       splitRule: "",
     });
   };
-  return admin ? (
-    <p>Welcom to admin page</p>
-  ) : (
+  if (role === "admin") {
+    return <p>Welcom to admin page</p>;
+  }
+  return role === "user" ? (
     <div className="max-w-350 mx-auto  bg-[#FDFDFD] rounded-lg shadow-md overflow-x-auto  p-4 ">
       {/* Title */}
       <div className="flex justify-center items-center gap-6 pb-2 mt-2 mb-2">
@@ -182,7 +185,7 @@ const ExpenseForm = ({ admin }) => {
         </button>
       </form>
     </div>
-  );
+  ) : null;
 };
 
 export default ExpenseForm;

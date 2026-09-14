@@ -1,16 +1,18 @@
 import { FiList } from "react-icons/fi";
 import { useUserExpanse } from "../context/userExpanseContext";
 import { FaFolderOpen } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext";
 
-const ExpenseList = ({ admin }) => {
+const ExpenseList = () => {
   const { expanses, setEditingExpense, handleDelete } = useUserExpanse();
+  const { role } = useAuth();
 
   const handleEdit = (data) => {
     setEditingExpense(data);
   };
 
   return (
-    !admin && (
+    role === "user" && (
       <div className=" max-w-350  mx-auto bg-[#FDFDFD] rounded-lg shadow-md  p-4  mt-6">
         <div className=" flex justify-between items-center">
           <div className="border-b-2 border-[#FD7D07] flex gap-2  items-center w-full pb-2">

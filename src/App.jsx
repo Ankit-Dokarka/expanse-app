@@ -7,16 +7,15 @@ import { Routes, Route } from "react-router-dom";
 import { PublicRoutes } from "./routes/PublicRoutes";
 import { PrivateRoutes } from "./routes/PrivateRoutes";
 import { Header } from "./components/Header";
-import { useState } from "react";
+
 import { AuthProvider } from "./context/AuthContext";
 
 const App = () => {
-  const [admin, setAdmin] = useState(false);
   return (
     <AuthProvider>
       <Routes>
         <Route element={<PublicRoutes />}>
-          <Route path="/login" element={<Login setAdmin={setAdmin} />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Route>
         <Route element={<PrivateRoutes />}>
@@ -25,8 +24,8 @@ const App = () => {
             element={
               <UserExpanseProvider>
                 <Header />
-                <ExpenseForm admin={admin} />
-                <ExpenseList admin={admin} />
+                <ExpenseForm />
+                <ExpenseList />
               </UserExpanseProvider>
             }
           />
