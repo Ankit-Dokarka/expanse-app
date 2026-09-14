@@ -8,7 +8,7 @@ import { PublicRoutes } from "./routes/PublicRoutes";
 import { PrivateRoutes } from "./routes/PrivateRoutes";
 import { Header } from "./components/Header";
 import { useState } from "react";
-import { AuthProvider } from "./context/AuthConetext";
+import { AuthProvider } from "./context/AuthContext";
 
 const App = () => {
   const [admin, setAdmin] = useState(false);

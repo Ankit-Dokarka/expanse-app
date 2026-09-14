@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthConetext";
+import { useAuth } from "../context/AuthContext";
 
 export const Register = () => {
   const [error, setError] = useState("");
@@ -14,8 +14,6 @@ export const Register = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const data = JSON.parse(localStorage.getItem("usersData"));
-  let usersData = data ? data : {};
 
   const checkPassword = watch("confirmPassword");
 
@@ -23,11 +21,15 @@ export const Register = () => {
     setLoading(true);
     const res = signUp(data);
     if (res.success) {
-      setLoading(false);
-      naviagte("/");
+      setTimeout(() => {
+        setLoading(false);
+        naviagte("/");
+      }, 2000);
     } else {
-      setError(res.message);
-      setLoading(false);
+      setTimeout(() => {
+        setError(res.message);
+        setLoading(false);
+      }, 2000);
     }
   };
   return (
