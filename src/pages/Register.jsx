@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthConetext";
 
 export const Register = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const naviagte = useNavigate();
+  const { signUp } = useAuth();
   const {
     handleSubmit,
     register,
@@ -19,21 +21,13 @@ export const Register = () => {
 
   const onSubmit = (data) => {
     setLoading(true);
-    if (usersData[data.email]) {
-      setTimeout(() => {
-        setError("User already exists");
-        setLoading(false);
-      }, 2000);
+    const res = signUp(data);
+    if (res.success) {
+      setLoading(false);
+      naviagte("/");
     } else {
-      setTimeout(() => {
-        data.expanses = [];
-        usersData[data.email] = data;
-        localStorage.setItem("usersData", JSON.stringify(usersData));
-        setError("");
-        naviagte("/");
-        localStorage.setItem("currentUser", JSON.stringify(data.email));
-        setLoading(false);
-      }, 2000);
+      setError(res.message);
+      setLoading(false);
     }
   };
   return (

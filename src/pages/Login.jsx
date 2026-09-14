@@ -3,13 +3,15 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 export const Login = ({ setAdmin }) => {
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    setError,
+    formState: { errors, isSubmitting },
   } = useForm();
   const data = JSON.parse(localStorage.getItem("usersData"));
   let usersData = data ? data : {};
@@ -22,19 +24,26 @@ export const Login = ({ setAdmin }) => {
           setTimeout(() => {
             navigate("/");
             setError("");
-
+            setAdmin(false);
             localStorage.setItem("currentUser", JSON.stringify(data.email));
             setLoading(false);
           }, 2000);
         } else {
           setTimeout(() => {
-            setError("Invalid Credentials");
+            // setError("email", "Invalid Credentials");
+            console.log("1");
             setLoading(false);
           }, 2000);
         }
       } else {
         setTimeout(() => {
-          setError("Please Register");
+          setError("root.serverError", {
+            type: "manual",
+            message: "User not found",
+          });
+          console.log("2");
+          // setError("Please Register");
+
           setLoading(false);
         }, 2000);
       }
@@ -54,10 +63,16 @@ export const Login = ({ setAdmin }) => {
       }
     }
   };
+  console.log(isSubmitting);
   return (
     <div className="w-100  p-5 bg-white shadow-lg rounded-md">
       <h2 className="text-xl font-bold text-center">Login</h2>
-      {error ? <p className="text-red-500 text-center">{error}</p> : null}
+      {errors.root?.serverError && (
+        <p className="text-red-500 text-center">
+          {errors.root.serverError.message}
+        </p>
+      )}
+      {/* {error ? <p className="text-red-500 text-center">{error}</p> : null} */}
       <form
         action=""
         className="flex justify-center flex-col gap-2 "
