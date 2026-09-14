@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { useUserExpanse } from "../context/userExpanseContext";
 import { useForm } from "react-hook-form";
@@ -16,7 +16,7 @@ const members = ["Ritik", "Neeraj", "Ankit", "Kunal"];
 
 const ExpenseForm = () => {
   const { register, handleSubmit, reset } = useForm({});
-  const { handleExpanse, editingExpense, setEditingExpense } = useUserExpanse();
+  const { handleExpanse, editingExpense } = useUserExpanse();
   const { role } = useAuth();
 
   useEffect(() => {
