@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export const Login = ({ setAdmin }) => {
@@ -82,6 +82,10 @@ export const Login = ({ setAdmin }) => {
             "Login"
           )}
         </button>
+        <div className="flex justify-between items-center ">
+          <p className="text-sm">Don't have an account ?</p>
+          <Link to={"/register"}>Register</Link>
+        </div>
       </form>
     </div>
   );

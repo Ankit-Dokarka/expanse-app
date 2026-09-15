@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export const Register = () => {
@@ -103,12 +103,7 @@ export const Register = () => {
           id="confirmPassword"
           {...register("confirmPassword", {
             required: "Confirm Password is required",
-            minLength: {
-              value: 6,
-              message: "Confirm Password must be at least 6 characters long",
-            },
             validate: (value) => {
-              console.log(value, password.value);
               if (value !== password.value) {
                 return "Passwords do not match";
               }
@@ -130,6 +125,10 @@ export const Register = () => {
             "Register"
           )}
         </button>
+        <div className="flex justify-between items-center ">
+          <p className="text-sm">Already have an account ?</p>
+          <Link to={"/login"}>Login</Link>
+        </div>
       </form>
     </div>
   );
