@@ -2,7 +2,12 @@
 @import "tailwindcss";
 
 body {
-  background-color: #FEF1DF;
+background: linear-gradient(
+  135deg,
+  #f5f3ff 0%,
+  #eef2ff 50%,
+  #e0e7ff 100%
+);
   min-height: 100dvh;
   font-family: "Valley Sans", sans-serif;
   display: flex;

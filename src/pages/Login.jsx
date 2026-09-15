@@ -2,7 +2,15 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { Button, Paper, TextInput, Stack } from "@mantine/core";
+import {
+  Button,
+  Paper,
+  TextInput,
+  Stack,
+  Title,
+  Group,
+  Text,
+} from "@mantine/core";
 
 export const Login = () => {
   const [error, setError] = useState("");
@@ -35,7 +43,9 @@ export const Login = () => {
 
   return (
     <Paper w={400} p="xl" shadow="md" radius="md" withBorder>
-      <h2 className="text-xl font-bold text-center">Login</h2>
+      <Title order={2} ta="center">
+        Login
+      </Title>
 
       {error ? <p className="text-red-500 text-center">{error}</p> : null}
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -64,10 +74,11 @@ export const Login = () => {
           <Button type="submit" loading={loading}>
             Login
           </Button>
-          <div className="flex justify-between items-center ">
-            <p className="text-sm">Don't have an account ?</p>
-            <Link to={"/register"}>Register</Link>
-          </div>
+          <Group justify="space-between">
+            <Text size="sm">Don't have an account?</Text>
+
+            <Link to="/register">Register</Link>
+          </Group>
         </Stack>
       </form>
     </Paper>

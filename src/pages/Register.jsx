@@ -2,6 +2,15 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import {
+  Button,
+  Group,
+  Paper,
+  Stack,
+  Text,
+  TextInput,
+  Title,
+} from "@mantine/core";
 
 export const Register = () => {
   const [error, setError] = useState("");
@@ -33,103 +42,79 @@ export const Register = () => {
     }
   };
   return (
-    <div className="w-100  p-5 bg-white shadow-lg rounded-md">
-      <h2 className="text-xl font-bold text-center">Register</h2>
+    <Paper w={400} p="md" shadow="md" radius="md" withBorder>
+      <Title order={2} ta="center">
+        Register
+      </Title>
       {error ? <p className="text-red-500 text-center">{error}</p> : null}
-      <form
-        action=""
-        className="flex justify-center flex-col gap-2 h-120"
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate
-      >
-        <label htmlFor="name">Name</label>
-        <input
-          className="border-2 border-[#f7bf72] outline-none rounded-sm px-1 py-1"
-          type="text"
-          id="name"
-          {...register("name", {
-            required: "Name is required",
-            minLength: {
-              value: 3,
-              message: "Name must be at least 3 characters long",
-            },
-          })}
-        />
-        {errors.name && (
-          <p className="text-red-500 text-sm">{errors.name.message}</p>
-        )}
-        <label htmlFor="email">Email</label>
-        <input
-          className="border-2 border-[#f7bf72] outline-none rounded-sm px-1 py-1"
-          type="email"
-          id="email"
-          {...register("email", {
-            required: "Email is required",
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: "Invalid email address",
-            },
-          })}
-        />
-        {errors.email && (
-          <p className="text-red-500 text-sm">{errors.email.message}</p>
-        )}
-        <label htmlFor="password">Password</label>
-        <input
-          className="border-2 border-[#f7bf72] outline-none rounded-sm px-1 py-1"
-          type="password"
-          id="password"
-          {...register("password", {
-            required: "Password is required",
-            minLength: {
-              value: 6,
-              message: "Password must be at least 6 characters long",
-            },
-            pattern: {
-              value:
-                /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
-              message:
-                "Password must contain at least one uppercase letter, one number, and one special character",
-            },
-          })}
-        />
-        {errors.password && (
-          <p className="text-red-500 text-sm">{errors.password.message}</p>
-        )}
-        <label htmlFor="confirmPassword">Confirm Password</label>
-        <input
-          className="border-2 border-[#f7bf72] outline-none rounded-sm px-1 py-1"
-          type="password"
-          id="confirmPassword"
-          {...register("confirmPassword", {
-            required: "Confirm Password is required",
-            validate: (value) => {
-              if (value !== password.value) {
-                return "Passwords do not match";
-              }
-            },
-          })}
-        />
-        {errors.confirmPassword && (
-          <p className="text-red-500 text-sm">
-            {errors.confirmPassword.message}
-          </p>
-        )}
-        <button
-          type="submit"
-          className="bg-[#FD7D07] p-2 flex justify-center items-center rounded-md cursor-pointer text-white font-bold"
-        >
-          {loading ? (
-            <div className="h-6 w-6 animate-spin rounded-full border-2 border-white border-t-transparent" />
-          ) : (
-            "Register"
-          )}
-        </button>
-        <div className="flex justify-between items-center ">
-          <p className="text-sm">Already have an account ?</p>
-          <Link to={"/login"}>Login</Link>
-        </div>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <Stack gap="md">
+          <TextInput
+            label="Name"
+            type="text"
+            {...register("name", {
+              required: "Name is required",
+              minLength: {
+                value: 3,
+                message: "Name must be at least 3 characters long",
+              },
+            })}
+            error={errors?.name?.message}
+          />
+
+          <TextInput
+            label="Email"
+            type="email"
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Invalid email address",
+              },
+            })}
+            error={errors?.email?.message}
+          />
+          <TextInput
+            label="Password"
+            type="password"
+            {...register("password", {
+              required: "Password is required",
+              minLength: {
+                value: 6,
+                message: "Password must be at least 6 characters long",
+              },
+              pattern: {
+                value:
+                  /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+                message:
+                  "Password must contain at least one uppercase letter, one number, and one special character",
+              },
+            })}
+            error={errors?.password?.message}
+          />
+          <TextInput
+            label="Confirm Password"
+            type="password"
+            {...register("confirmPassword", {
+              required: "Confirm Password is required",
+              validate: (value) => {
+                if (value !== password.value) {
+                  return "Passwords do not match";
+                }
+              },
+            })}
+            error={errors?.confirmPassword?.message}
+          />
+
+          <Button type="submit" loading={loading}>
+            Register
+          </Button>
+          <Group justify="space-between">
+            <Text size="sm">Already have an account ?</Text>
+            <Link to={"/login"}>Login</Link>
+          </Group>
+        </Stack>
       </form>
-    </div>
+    </Paper>
   );
 };
