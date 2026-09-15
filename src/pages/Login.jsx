@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { Button, Paper, TextInput, Stack } from "@mantine/core";
 
-export const Login = ({ setAdmin }) => {
+export const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -33,60 +34,42 @@ export const Login = ({ setAdmin }) => {
   };
 
   return (
-    <div className="w-100  p-5 bg-white shadow-lg rounded-md">
+    <Paper w={400} p="xl" shadow="md" radius="md" withBorder>
       <h2 className="text-xl font-bold text-center">Login</h2>
 
       {error ? <p className="text-red-500 text-center">{error}</p> : null}
-      <form
-        action=""
-        className="flex justify-center flex-col gap-2 "
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate
-      >
-        <label htmlFor="email">Email</label>
-        <input
-          className="border-2 border-[#f7bf72] outline-none rounded-sm px-1 py-1"
-          type="email"
-          id="email"
-          {...register("email", {
-            required: "Email is required",
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: "Invalid email address",
-            },
-          })}
-        />
-        {errors.email && (
-          <p className="text-red-500 text-sm">{errors.email.message}</p>
-        )}
-        <label htmlFor="password">Password</label>
-        <input
-          className="border-2 border-[#f7bf72] outline-none rounded-sm px-1 py-1"
-          type="password"
-          id="password"
-          {...register("password", {
-            required: "Password is required",
-          })}
-        />
-        {errors.password && (
-          <p className="text-red-500 text-sm">{errors.password.message}</p>
-        )}
-
-        <button
-          type="submit"
-          className="bg-[#FD7D07] p-2 flex justify-center items-center rounded-md cursor-pointer text-white font-bold"
-        >
-          {loading ? (
-            <div className="h-6 w-6 animate-spin rounded-full border-2 border-white border-t-transparent" />
-          ) : (
-            "Login"
-          )}
-        </button>
-        <div className="flex justify-between items-center ">
-          <p className="text-sm">Don't have an account ?</p>
-          <Link to={"/register"}>Register</Link>
-        </div>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <Stack gap="md">
+          <TextInput
+            label="Email"
+            type="email"
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Invalid email address",
+              },
+            })}
+            error={errors.email?.message}
+          />
+          <TextInput
+            label="Password"
+            type="password"
+            id="password"
+            {...register("password", {
+              required: "Password is required",
+            })}
+            error={errors.password?.message}
+          />
+          <Button type="submit" loading={loading}>
+            Login
+          </Button>
+          <div className="flex justify-between items-center ">
+            <p className="text-sm">Don't have an account ?</p>
+            <Link to={"/register"}>Register</Link>
+          </div>
+        </Stack>
       </form>
-    </div>
+    </Paper>
   );
 };

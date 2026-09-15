@@ -11,6 +11,7 @@ import {
   FiPlus,
 } from "react-icons/fi";
 import { useAuth } from "../context/AuthContext";
+import { Admin } from "../pages/Admin";
 
 const members = ["Ritik", "Neeraj", "Ankit", "Kunal"];
 
@@ -48,7 +49,7 @@ const ExpenseForm = () => {
     });
   };
   if (role === "admin") {
-    return <p>Welcom to admin page</p>;
+    return <Admin />;
   }
   return role === "user" ? (
     <div className="max-w-350 mx-auto  bg-[#FDFDFD] rounded-lg shadow-md overflow-x-auto  p-4 ">
