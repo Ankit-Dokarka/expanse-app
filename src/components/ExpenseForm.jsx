@@ -12,6 +12,7 @@ import {
 } from "react-icons/fi";
 import { useAuth } from "../context/AuthContext";
 import { Admin } from "../pages/Admin";
+import { Button } from "@mantine/core";
 
 const members = ["Ritik", "Neeraj", "Ankit", "Kunal"];
 
@@ -180,10 +181,9 @@ const ExpenseForm = () => {
             })}
           </div>
         </div>
-        <button className="bg-[#FD7D07] flex justify-center items-center rounded-lg text-white gap-2 px-0.5 py-2 fw-bold">
-          <FiPlus color="white" size={20} />
+        <Button type="submit" leftSection={<FiPlus size={18} />}>
           {editingExpense ? "Update Expense" : "Add Expense"}
-        </button>
+        </Button>
       </form>
     </div>
   ) : null;
