@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FiList } from "react-icons/fi";
+import { Select, Paper } from "@mantine/core";
 
 export const Admin = () => {
   const data = JSON.parse(localStorage.getItem("usersData")) || {};
@@ -15,6 +16,7 @@ export const Admin = () => {
   const handleDropDown = (value) => {
     if (!value) {
       setExpanse([]);
+      return;
     }
     setExpanse(data[value].expanses);
   };
@@ -22,20 +24,14 @@ export const Admin = () => {
   return (
     <div className="">
       <div>
-        <select
-          className="border-2 outline-none border-amber-600 px-1 py-1 rounded-md"
-          onChange={(e) => handleDropDown(e.target.value)}
-        >
-          <option value="">Select person</option>
-
-          {users.map((user) => (
-            <option key={user} value={user}>
-              {user}
-            </option>
-          ))}
-        </select>
+        <Select
+          w={250}
+          placeholder="Select a person"
+          data={users}
+          onChange={handleDropDown}
+        />
       </div>
-      <div className=" max-w-350  mx-auto bg-[#FDFDFD] rounded-lg shadow-md  p-4  mt-6">
+      <Paper maw={1400} mx="auto" p="md" mt="md" radius="md" shadow="md">
         <div className=" flex justify-between items-center">
           <div className="border-b-2 border-[#FD7D07] flex gap-2  items-center justify-between  w-full pb-2">
             <div className="flex justify-center items-center gap-2">
@@ -98,7 +94,7 @@ export const Admin = () => {
             })}
           </tbody>
         </table>
-      </div>
+      </Paper>
     </div>
   );
 };
